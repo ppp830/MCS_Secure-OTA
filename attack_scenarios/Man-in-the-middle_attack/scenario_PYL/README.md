@@ -81,7 +81,7 @@ if __name__ == "__main__":
 
 import requests
 
-url = "http://ota.com:8000/ota"
+url = "http://write your server IP:8000/ota"
 
 print("[Vehicle] Sending OTA update request...")
 
