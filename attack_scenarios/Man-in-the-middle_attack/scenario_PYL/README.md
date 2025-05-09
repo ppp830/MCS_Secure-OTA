@@ -5,7 +5,7 @@ This project simulates a Man-In-The-Middle (MITM) attack on an insecure OTA (Ove
 ## Assumptions
 
 - The attacker has already compromised the proxy server.
-- The vehicle’s communication module makes OTA requests using domain names (e.g., `ota.com`).
+- The vehicle’s communication module makes OTA requests using domain names (e.g., `write your server IP`).
 - The proxy server, under the attacker's control, can inspect and modify traffic.
 - The OTA server lacks authentication, integrity checks, and encryption.
 - The vehicle does not verify signatures or hashes on received files.
@@ -20,10 +20,10 @@ This project simulates a Man-In-The-Middle (MITM) attack on an insecure OTA (Ove
 - A notice is sent out that an update is available.
 
 ### Step 2: Vehicle Makes OTA Request
-- The vehicle's communication module sends an OTA request to `http://ota.com`.
+- The vehicle's communication module sends an OTA request to `http://write your server IP`.
 - To fetch the file, it needs to resolve the domain to an IP.
 - The attacker intercepts the IP resolution response and replaces it with the attacker’s server IP.
-- From the vehicle’s perspective, `ota.com` now points to the attacker-controlled server.
+- From the vehicle’s perspective, `write your server IP` now points to the attacker-controlled server.
 
 ### Step 3: Attacker Hosts a Fake OTA Server
 - The attacker operates a malicious OTA server that mimics the real one.
@@ -73,6 +73,7 @@ if __name__ == "__main__":
 - A simple Flask server listens on port 8000.
 - When /ota is accessed, it returns the fake binary file.
 - The .bin file imitates a real OTA update.
+![image](https://github.com/user-attachments/assets/fdacdc6e-ec2d-44c9-9a3c-ac2e6d3f71a2)
 
 ### Step 2: Simulate the Vehicle's Communication Module
 
@@ -97,18 +98,19 @@ else:
 
 #### Explanation
 
-- Sends an HTTP GET request to `http://ota.com:8000/ota`.
+- Sends an HTTP GET request to `http://write your server IP:8000/ota`.
 - If successful, saves the file as `downloaded_ota.bin`.
 - Simulates a vehicle blindly trusting the update file.
+![image](https://github.com/user-attachments/assets/abc790e8-4d25-4350-b818-5c6728f8fcc3)
 
 ## Configuration (for local testing)
 ### 1. Modify `hosts` file on your machine (Windows only)
-To redirect `ota.com` to your local attacker server:
+To redirect `write your server IP` to your local attacker server:
 1. Run Notepad as Administrator
 2. Open: `C:\Windows\System32\drivers\etc\hosts`
 3. Add the following line:
 ```
-127.0.0.1 ota.com
+127.0.0.1 write your server IP
 ```
 4. Save and close
 
